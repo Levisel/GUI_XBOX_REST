@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XboxGamePass</title>
+    <!-- Agrega el enlace a la biblioteca de FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Referencia a Bootstrap descargado -->
+    <link href="/css/bootstrap.css" media="all" type="text/css" rel="stylesheet">
+    <link href="/css/styleCarrito.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/x-icon" href="https://fvelasco.neocities.org/images/xbox.ico">
+</head>
+<body>
+
+<!--------------HEADER------------------------------------------------------------------------------------------------------>
+<header class="header bg-dark">
+    <div class="container">
+        <div class="cart-container">
+            <div class="cart-icon">
+                <a id="miCarro">
+                    <i class="bx bx-cart" id="logo-carro"></i>
+                </a>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="https://fvelasco.neocities.org/images/xbox.png" alt="logo" class="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a href="/Views/Index.html" class="nav-link active">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Views/Planes.html" class="nav-link active">Planes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Views/Contacto.html" class="nav-link active">Contacto</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Administración
+                            </a>
+                            <ul class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                                <li><a href="/Views/CRUD/Analisis.html" class="dropdown-item">Análisis</a></li>
+                                <li><a href="/Views/CRUD/Clientes.html" class="dropdown-item">Clientes</a></li>
+                                <li><a href="/Views/CRUD/Pagos.html" class="dropdown-item">Pagos</a></li>
+                                <li><a href="/Views/CRUD/Planes.html" class="dropdown-item">Planes</a></li>
+                                <li><a href="/Views/CRUD/Suscripciones.html" class="dropdown-item">Suscripciones</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!--------------CONTENIDO------------------------------------------------------------------------------------------------------>
+<div class="container my-5">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 bg-light sidebar">
+                <h4 class="text-center p-3">Menú CRUD</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" onclick="showSection('list')">
+                            <i class="fas fa-list"></i> Listar Pagos
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('add')">
+                            <i class="fas fa-plus-circle"></i> Añadir Pago
+                        </a>
+                    </li>
+                </ul>
+            </div>
+    
+            <!-- Contenido Principal -->
+            <div class="col-md-9">
+                <!-- Sección Listar Pagos -->
+                <div id="list" class="content-section">
+                    <h2>Pagos</h2>
+
+                        <div class="row align-items-center">
+                            <div class="col-md-2">
+                                <div class="form-group mb-2">
+                                    <label class="col-form-label">ID:</label>
+                                    <input type="text" id="searchId" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="col-md-1" style="margin-bottom: -30px;">
+                                <div class="form-group mb-lg-1">
+                                    <button class="btn btn-dark" onclick="getPagoById()">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    <br />
+
+                    <table class="table mt-2">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Cliente</th>
+                                <th>Suscripción</th>
+                                <th>Monto</th>
+                                <th>Fecha</th>
+                                <th>Estado del Pago</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="pagoList"></tbody>
+                    </table>
+                    <nav class="d-flex justify-content-center">
+                        <ul class="pagination" id="pagination"></ul>
+                    </nav>                        
+                </div>
+    
+               <!-- Sección Añadir Pago -->
+                    <div id="add" class="content-section" style="display: none;">
+                        <h2>Añadir Pago</h2>
+
+                        <div class="mb-2">
+                            <label for="addCliente">Cliente:</label>
+                            <select id="addClienteId" class="form-control mb-2"></select>
+                        </div>
+                        <div class="mb-2">
+                            <label for="addSuscripcion">Suscripción:</label>
+                            <select id="addSuscripcionId" class="form-control mb-2"></select>
+                        </div>
+                        <div class="mb-2">
+                            <label for="addMonto">Monto:</label>
+                            <input type="text" id="addMonto" class="form-control mb-2">
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="addFecha">Fecha:</label>
+                            <input type="date" id="addFecha" class="form-control mb-2">
+                        </div>
+
+                        <label for="addEstado">Estado:</label>
+                        <select id="addEstado" class="form-control mb-2">
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Pagado">Pagado</option>
+                        </select>
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-success" onclick="addPago()">Crear</button>
+                                <button class="btn btn-secondary" onclick="showSection('list')">Regresar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección Actualizar Pago -->
+                    <div id="update" class="content-section" style="display: none;">
+                        <h2>Actualizar Pago</h2>
+
+                        <label for="updateId">ID:</label>
+                        <input type="text" id="updateId" class="form-control mb-2" readonly>
+                        
+                        <label for="updateCodigo">Código:</label>
+                        <input type="text" id="updateCodigo" class="form-control mb-2" readonly>
+                        
+                        <label for="updateCliente">Cliente:</label>
+                        <select id="updateClienteId" class="form-control mb-2"></select>
+                        
+                        <label for="updateSuscripcion">Suscripción:</label>
+                        <select id="updateSuscripcionId" class="form-control mb-2"></select>
+                        
+                        <label for="updateMonto">Monto:</label>
+                        <input type="text" id="updateMonto" class="form-control mb-2">
+
+                        <label for="updateFecha">Fecha:</label>
+                        <input type="date" id="updateFecha" class="form-control mb-2">
+
+                        <label for="updateEstado">Estado:</label>
+                        <select id="updateEstado" class="form-control mb-2">
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Pagado">Pagado</option>
+                        </select>
+                    
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-primary" onclick="updatePago()">Guardar</button>
+                                <button class="btn btn-secondary" onclick="showSection('list')">Regresar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección Ver Pago -->
+                    <div id="view" class="content-section" style="display: none;">
+                        <h2>Ver Pago</h2>
+                        
+                        <label for="viewCodigo">Código:</label>
+                        <input type="text" id="viewCodigo" class="form-control mb-2" readonly>
+                        
+                        <label for="viewCliente">Cliente:</label>
+                        <input type="text" id="viewClienteId" class="form-control mb-2" readonly>
+                        
+                        <label for="viewSuscripcion">Suscripción:</label>
+                        <input type="text" id="viewSuscripcionId" class="form-control mb-2" readonly>
+                        
+                        <label for="viewMonto">Monto:</label>
+                        <input type="text" id="viewMonto" class="form-control mb-2" readonly>
+
+                        <label for="viewFecha">Fecha:</label>
+                        <input type="text" id="viewFecha" class="form-control mb-2" readonly>
+                        
+                        <label for="viewEstado">Estado:</label>
+                        <input type="text" id="viewEstado" class="form-control mb-2" readonly>
+                        
+                        <br />
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-secondary" onclick="showSection('list')">Regresar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección Eliminar Pago -->
+                    <div id="delete" class="content-section" style="display: none;">
+                        <h2>Eliminar Pago</h2>
+                        <p>¿Está seguro de que desea eliminar al siguiente Pago?</p>
+                        <div class="mb-2">
+                            <label for="deleteId">Código:</label>
+                            <input type="text" id="deleteId" class="form-control" readonly>
+                        </div>
+                        <div class="mb-2">
+                            <label for="deleteCodigo">Código:</label>
+                            <input type="text" id="deleteCodigo" class="form-control" readonly>
+                        </div>
+                        <div class="mb-2">
+                            <label for="deleteCliente">Cliente:</label>
+                            <input type="text" id="deleteClienteId" class="form-control" readonly>
+                        </div>
+                        <div class="mb-2">
+                            <label for="deleteSuscripcion">Suscripción:</label>
+                            <input type="text" id="deleteSuscripcionId" class="form-control" readonly>
+                        </div>
+                        <div class="mb-2">
+                            <label for="deleteFecha">Fecha:</label>
+                            <input type="text" id="deleteFecha" class="form-control" readonly>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-danger" onclick="deletePago()">Eliminar</button>
+                                <button class="btn btn-secondary" onclick="showSection('list')">Regresar</button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--------------FIN DEL CONTENIDO------------------------------------------------------------------------------------------------------>
+
+<!--------------FOOTER------------------------------------------------------------------------------------------------------>
+    <footer class="bg-dark text-center text-white">
+        <div class="container p-4">
+            <!-- Sección de íconos de redes sociales -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <!-- Twitter -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                    <i class="fab fa-twitter"></i>
+                </a>
+
+                <!-- Google -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                    <i class="fab fa-google"></i>
+                </a>
+
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button">
+                    <i class="fab fa-github"></i>
+                </a>
+            </section>
+            <!-- Fin de la sección de íconos de redes sociales -->
+        </div>
+        <!-- Fin del contenedor -->
+        <!-- Texto de derechos de autor -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2024 Copyright:
+            <a class="text-white" href="https://www.xbox.com/es-ES/">Xbox.com</a>
+        </div>
+        <!-- Fin del texto de derechos de autor -->
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/pago.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://fvelasco.neocities.org/js/actualizarcarrito.js" type="text/javascript"></script>
+    <script src="https://fvelasco.neocities.org/js/carrito.js" type="text/javascript"></script>
+    <script src="https://fvelasco.neocities.org/js/mostrarcarrito.js" type="text/javascript"></script>
+    <script src="/js/java.js" type="text/javascript"></script>
+</body>
+</html>

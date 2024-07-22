@@ -1,0 +1,102 @@
+        /* Estilos personalizados */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-family: "Albert Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .container {
+            flex: 1;
+        }
+
+        .header {
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem 12%; /* Reducir el padding vertical */
+            backdrop-filter: blur(50px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+
+        /* Estilos para los iconos del menú */
+        .icons {
+            font-size: 2.8rem;
+            color: #fff;
+            cursor: pointer;
+            display: none;
+        }
+
+        .logo {
+            width: 100px; /* Ancho del logo */
+            height: auto; /* Altura automática para mantener la proporción */
+            position: relative; /* Cambiado a relativo para mantener el flujo del documento */
+            top: 0; /* Ajustar la posición superior */
+            left: 0; /* Ajustar la posición izquierda */
+        }
+
+
+        /* Estilos para el contenedor del carrito */
+        .cart-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-right: 70px;
+            margin-top: 27px;
+        }
+
+        /* Estilos para el ícono de carrito */
+        .cart-icon .bx-cart {
+            font-size: 35px;
+            color: #f0f0f0
+        }
+
+        /* Estilos para el número de elementos en el carrito */
+        #cart-count {
+            position: fixed;
+            background-color: #0067b8;
+            color: white;
+            border-radius: 50%;
+            padding: 1px 7.5px;
+            font-size: 14px;
+            margin-left: -11px;
+            margin-top: -7px;
+        }
+
+        #logo-carro {
+            cursor: pointer;
+        }
+
+        /* Media Query para pantallas pequeñas (teléfonos móviles) */
+@media (max-width: 991px) {
+  /* Deja el tamaño definido en el @media */
+  .cart-container {
+    position: absolute;
+    font-size: 35px;
+    margin-top: 23px;
+    margin-right: 25px;
+  }
+}
+/* Media Query para pantallas pequeñas (teléfonos móviles) */
+@media (max-width: 475px) {
+  /* Deja el tamaño definido en el @media */
+  .cart-container {
+    position: absolute;
+    font-size: 35px;
+    margin-right: 150px;
+  }
+
+  .pagination .green-button {
+    background-color: #107c10 !important; /* Color verde */
+    border-color: #107c10 !important; /* Borde del mismo color */
+}
+}
